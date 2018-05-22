@@ -69,7 +69,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(316, 481);
+            this.groupBox1.Size = new System.Drawing.Size(503, 481);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dostępne szablony wykresów";
@@ -92,7 +92,7 @@
             this.listBox_szablony.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_szablony.Name = "listBox_szablony";
             this.listBox_szablony.ScrollAlwaysVisible = true;
-            this.listBox_szablony.Size = new System.Drawing.Size(304, 452);
+            this.listBox_szablony.Size = new System.Drawing.Size(492, 452);
             this.listBox_szablony.TabIndex = 0;
             this.listBox_szablony.SelectedIndexChanged += new System.EventHandler(this.listBox_szablony_SelectedIndexChanged);
             // 
@@ -103,7 +103,7 @@
             this.groupBox2.Controls.Add(this.listBox_atrybuty);
             this.groupBox2.Controls.Add(this.button_wyczysc_zazn);
             this.groupBox2.Controls.Add(this.textBox_wyszukaj);
-            this.groupBox2.Location = new System.Drawing.Point(344, 12);
+            this.groupBox2.Location = new System.Drawing.Point(534, 11);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -150,7 +150,7 @@
             // 
             // button_generuj_wykres
             // 
-            this.button_generuj_wykres.Location = new System.Drawing.Point(349, 462);
+            this.button_generuj_wykres.Location = new System.Drawing.Point(539, 461);
             this.button_generuj_wykres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_generuj_wykres.Name = "button_generuj_wykres";
             this.button_generuj_wykres.Size = new System.Drawing.Size(267, 32);
@@ -163,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 524);
+            this.ClientSize = new System.Drawing.Size(835, 518);
             this.Controls.Add(this.button_generuj_wykres);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
