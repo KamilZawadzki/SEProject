@@ -74,11 +74,11 @@ namespace SEProject
                 case 1:
                     break;
                 case 2:
-                    load_telephone_model();
+                    load_model("smartfon");
                     //MessageBox.Show("option 3");
                     break;
                 case 3:
-                    load_telephone_model();
+                    load_model("laptop");
                     break;
                 case 4:
                     //MessageBox.Show("option 5");
@@ -89,13 +89,11 @@ namespace SEProject
             }
         }
 
-        private void load_telephone_model()
+        private void load_model(String productType)
         {
 
                 conn.Open();
-                string query = "SELECT * FROM product WHERE productType='smartfon'";              
-               
-             
+                string query = $"SELECT * FROM product WHERE productType='{productType}'";                  
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
