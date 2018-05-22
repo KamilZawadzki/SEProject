@@ -11,6 +11,7 @@ using MySql.Data.MySqlClient;
 
 namespace SEProject
 {
+
     public partial class Charts : Form
     {
         private MySqlConnection conn;
@@ -19,7 +20,7 @@ namespace SEProject
         private string uid;
         private string password;
         public static string username;
-        public static string operation;
+        public static int operation;
 
         public Charts()
         {
@@ -72,27 +73,37 @@ namespace SEProject
 
         private void button_generuj_wykres_Click(object sender, EventArgs e)
         {
-            
+           
             switch (listBox_szablony.SelectedIndex)
             {
                 case 0:
-                    MessageBox.Show("option 1");
                     
+                    operation = 0;
+                    Diagram f = new Diagram();
+                    f.ShowDialog();
                     break;
                 case 1:
-                    MessageBox.Show("option 2");
+         
+                    operation = 1;
+                    Diagram g = new Diagram();
+                    g.ShowDialog();
                     break;
                 case 2:
                     MessageBox.Show("option 3");
+                    operation = 2;
                     break;
                 case 3:
                     MessageBox.Show("option 4");
+                    operation = 3;
                     break;
+                    
                 case 4:
                     MessageBox.Show("option 5");
+                    operation = 4;
                     break;
                 case 5:
                     MessageBox.Show("option 6");
+                    operation = 5;
                     break;
                 default:
                    MessageBox.Show("Nie wybrano szablonu!"); 
