@@ -175,7 +175,7 @@ namespace SEProject
 
                     break;
                 case 1:
-                    operation = 0;
+                    operation = 1;
                     Diagram g = new Diagram();
                     g.ShowDialog();
 
