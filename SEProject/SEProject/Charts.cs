@@ -21,8 +21,14 @@ namespace SEProject
         public static string username;
         public static string operation;
         private string connString;
+        private String[] laptopProducents;
+        private String[] smartfonProducents;
+
         public Charts()
         {
+            laptopProducents = new string[]{ "Lenovo", "HP", "ASUS","DELL","MSI","Apple"};
+            smartfonProducents = new string[] { "Lenovo", "XIAOMI", "NOKIA", "SAMSUNG", "Apple" };
+
             server = "localhost";
             database = "electronicstore_projekt";
             uid = "root";
@@ -67,26 +73,48 @@ namespace SEProject
         private void listBox_szablony_SelectedIndexChanged(object sender, EventArgs e)
         {
             listBox_model.Items.Clear();
+            listBox_model.Enabled = true;
             switch (listBox_szablony.SelectedIndex)
             {
                 case 0:
+                    listBox_model.Enabled = false;
                     break;
                 case 1:
+                    listBox_model.Enabled = false;
                     break;
                 case 2:
-                    load_model("smartfon");
-                    //MessageBox.Show("option 3");
+                    load_model("smartfon");             
                     break;
                 case 3:
                     load_model("laptop");
                     break;
                 case 4:
-                    //MessageBox.Show("option 5");
+                    load_producer("smartfon");
                     break;
                 case 5:
-                    //MessageBox.Show("option 6");
+                    load_producer("laptop");
                     break;
             }
+        }
+
+        private void load_producer(string v)
+        {
+            if (v.Equals("laptop"))
+            {
+                int x = laptopProducents.Length;
+                for (int i = 0; i < x; i++)
+                {
+                    listBox_model.Items.Add(laptopProducents[i]);
+                }
+            }
+            else
+            {
+                int x = smartfonProducents.Length;
+                for (int i = 0; i < x; i++)
+                {
+                    listBox_model.Items.Add(smartfonProducents[i]);
+                }
+            }       
         }
 
         private void load_model(String productType)
@@ -98,7 +126,7 @@ namespace SEProject
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    listBox_model.Items.Add(reader.GetString("productModel"));
+                    listBox_model.Items.Add(reader.GetString("producer") + " "+reader.GetString("productModel"));
                 }
 
                 //foodGreetingsLabel2.Text = reader.GetString("Wyzywienie");
@@ -141,6 +169,11 @@ namespace SEProject
                     break;
 
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
