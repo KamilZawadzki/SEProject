@@ -19,7 +19,7 @@ namespace SEProject
         private string uid;
         private string password;
         public static string username;
-        public static string operation;
+        public static int operation;
         private string connString;
         private String[] laptopProducents;
         private String[] smartfonProducents;
@@ -168,11 +168,17 @@ namespace SEProject
             switch (listBox_szablony.SelectedIndex)
             {
                 case 0:
-                    MessageBox.Show("option 1");
+                    operation = 0;
+                    Diagram f = new Diagram();
+                    f.ShowDialog();
+                    break;
 
                     break;
                 case 1:
-                    MessageBox.Show("option 2");
+                    operation = 0;
+                    Diagram g = new Diagram();
+                    g.ShowDialog();
+
                     break;
                 case 2:
                     MessageBox.Show("option 3");
