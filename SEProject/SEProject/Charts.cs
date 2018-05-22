@@ -20,17 +20,16 @@ namespace SEProject
         private string password;
         public static string username;
         public static string operation;
-
+        private string connString;
         public Charts()
         {
             server = "localhost";
             database = "electronicstore_projekt";
             uid = "root";
             password = "";
-            string connString;
-            connString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+
+            connString = $"SERVER={server};UID={uid};PASSWORD={password};DATABASE={database};";
             conn = new MySqlConnection(connString);
-            
             InitializeComponent();
         }
 
@@ -62,22 +61,67 @@ namespace SEProject
 
         private void listBox_atrybuty_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void listBox_szablony_SelectedIndexChanged(object sender, EventArgs e)
         {
+            listBox_model.Items.Clear();
+            switch (listBox_szablony.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    load_telephone_model();
+                    //MessageBox.Show("option 3");
+                    break;
+                case 3:
+                    load_telephone_model();
+                    break;
+                case 4:
+                    //MessageBox.Show("option 5");
+                    break;
+                case 5:
+                    //MessageBox.Show("option 6");
+                    break;
+            }
+        }
+
+        private void load_telephone_model()
+        {
+
+                conn.Open();
+                string query = "SELECT * FROM product WHERE productType='smartfon'";              
+               
+             
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    listBox_model.Items.Add(reader.GetString("productModel"));
+                }
+
+                //foodGreetingsLabel2.Text = reader.GetString("Wyzywienie");
+                reader.Close();
+
+
+                conn.Close();
+             
+            
+
 
         }
 
         private void button_generuj_wykres_Click(object sender, EventArgs e)
         {
-            
+            MessageBox.Show(listBox_szablony.Text);
             switch (listBox_szablony.SelectedIndex)
             {
                 case 0:
                     MessageBox.Show("option 1");
-                    
+
                     break;
                 case 1:
                     MessageBox.Show("option 2");
@@ -95,7 +139,7 @@ namespace SEProject
                     MessageBox.Show("option 6");
                     break;
                 default:
-                   MessageBox.Show("Nie wybrano szablonu!"); 
+                    MessageBox.Show("Nie wybrano szablonu!");
                     break;
 
             }
