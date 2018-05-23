@@ -26,6 +26,7 @@ namespace SEProject
         private String[] smartfonProducents;
         private String[] productAttributes;
         private DataTable dt;
+        private static List<string> list;
         public Charts()
         {
             laptopProducents = new string[]{ "Lenovo", "HP", "ASUS","DELL","MSI","Apple"};
@@ -161,7 +162,7 @@ namespace SEProject
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                dt.Rows.Add(reader.GetString("producer") + " " + reader.GetString("productModel"));
+                dt.Rows.Add(reader.GetString("producer") + ", " + reader.GetString("productModel"));
                     //listBox_model.Items.Add(reader.GetString("producer") + " "+reader.GetString("productModel"));
                 }
                 reader.Close();
@@ -196,7 +197,9 @@ namespace SEProject
                 case 2:
                     if (czy_tylko_dwa_zaznaczenia())
                     {
-                        MessageBox.Show("option 3");
+                        operation = 2;
+                        Diagram x = new Diagram();
+                        x.ShowDialog();
                     }
                     break;
                 case 3:
@@ -221,7 +224,7 @@ namespace SEProject
         private bool czy_tylko_dwa_zaznaczenia()
         {
             var lst = listBox_model.SelectedItems.Cast<DataRowView>();
-            List<string> list = new List<string>();
+            list = new List<string>();
             foreach (var item in lst)
             {
                 list.Add(item.Row[0].ToString());
@@ -243,6 +246,10 @@ namespace SEProject
                 }
                 return false;
             }
+        }
+        public static List<string> przekazListe_zZaznaczeniem()
+        {
+            return list;
         }
 
         private void label1_Click(object sender, EventArgs e)
