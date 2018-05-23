@@ -177,35 +177,64 @@ namespace SEProject
 
         private void button_generuj_wykres_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(listBox_szablony.Text);
+            //MessageBox.Show(listBox_szablony.Text);
+            Diagram f;
             switch (listBox_szablony.SelectedIndex)
             {
-                case 0:              
+                case 0:
+                    if (!listBox_atrybuty.Text.Equals(""))
+                    {
                         operation = 0;
                         descasc = listBox_atrybuty.SelectedIndex;
-                        Diagram f = new Diagram();
-                        f.ShowDialog();                     
+                        f = new Diagram();
+                        f.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nie wybrałeś atrybutu sortującego.");
+                    }                   
                     break;
 
                 case 1:
-                    operation = 1;
+                    if (!listBox_atrybuty.Text.Equals(""))
+                    {
+                        operation = 1;
                     descasc = listBox_atrybuty.SelectedIndex;
-                    Diagram g = new Diagram();
-                    g.ShowDialog();
-
-                    break;
+                    f = new Diagram();
+                    f.ShowDialog();
+            }
+                    else
+                    {
+                MessageBox.Show("Nie wybrałeś atrybutu sortującego.");
+            }
+            break;
                 case 2:
                     if (czy_tylko_dwa_zaznaczenia())
                     {
+                        if (!listBox_atrybuty.Text.Equals("")) { 
                         operation = 2;
-                        Diagram x = new Diagram();
-                        x.ShowDialog();
+                            f = new Diagram();
+                            f.ShowDialog();
+                    }
+                        else
+                        {
+                            MessageBox.Show("Nie wybrałeś atrybutu porównawczego.");
+                        }
                     }
                     break;
                 case 3:
                     if (czy_tylko_dwa_zaznaczenia())
                     {
-                        MessageBox.Show("option 4");
+                        if (!listBox_atrybuty.Text.Equals(""))
+                        {
+                            operation = 3;
+                            f = new Diagram();
+                            f.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nie wybrałeś atrybutu porównawczego.");
+                        }
                     }
                     break;
                 case 4:

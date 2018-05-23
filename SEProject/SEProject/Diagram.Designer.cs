@@ -43,13 +43,14 @@
             this.chart1_diagram.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1_diagram.Legends.Add(legend1);
-            this.chart1_diagram.Location = new System.Drawing.Point(61, 50);
+            this.chart1_diagram.Location = new System.Drawing.Point(81, 62);
+            this.chart1_diagram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chart1_diagram.Name = "chart1_diagram";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1_diagram.Series.Add(series1);
-            this.chart1_diagram.Size = new System.Drawing.Size(680, 388);
+            this.chart1_diagram.Size = new System.Drawing.Size(907, 478);
             this.chart1_diagram.TabIndex = 0;
             this.chart1_diagram.Text = "chart1";
             this.chart1_diagram.Click += new System.EventHandler(this.chart1_Click);
@@ -58,16 +59,18 @@
             // 
             this.label_nazwa_szablonu.AutoSize = true;
             this.label_nazwa_szablonu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_nazwa_szablonu.Location = new System.Drawing.Point(171, 9);
+            this.label_nazwa_szablonu.Location = new System.Drawing.Point(228, 11);
+            this.label_nazwa_szablonu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_nazwa_szablonu.Name = "label_nazwa_szablonu";
-            this.label_nazwa_szablonu.Size = new System.Drawing.Size(0, 19);
+            this.label_nazwa_szablonu.Size = new System.Drawing.Size(0, 24);
             this.label_nazwa_szablonu.TabIndex = 1;
             // 
             // button_zapisz
             // 
-            this.button_zapisz.Location = new System.Drawing.Point(643, 324);
+            this.button_zapisz.Location = new System.Drawing.Point(857, 399);
+            this.button_zapisz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_zapisz.Name = "button_zapisz";
-            this.button_zapisz.Size = new System.Drawing.Size(75, 23);
+            this.button_zapisz.Size = new System.Drawing.Size(100, 28);
             this.button_zapisz.TabIndex = 2;
             this.button_zapisz.Text = "Zapisz";
             this.button_zapisz.UseVisualStyleBackColor = true;
@@ -75,12 +78,14 @@
             // 
             // Diagram
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.button_zapisz);
             this.Controls.Add(this.label_nazwa_szablonu);
             this.Controls.Add(this.chart1_diagram);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Diagram";
             this.Text = "Diagram";
             this.Load += new System.EventHandler(this.Diagram_Load);
