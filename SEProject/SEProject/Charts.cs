@@ -13,6 +13,7 @@ namespace SEProject
 {
     public partial class Charts : Form
     {
+        public static string atrybutwyb;
         public static int descasc;
         private MySqlConnection conn;
         private string server;
@@ -25,6 +26,7 @@ namespace SEProject
         private String[] laptopProducents;
         private String[] smartfonProducents;
         private String[] productAttributes;
+        private String[] productAttributes_eng;
         private DataTable dt;
         private static List<string> list;
         public Charts()
@@ -32,7 +34,7 @@ namespace SEProject
             laptopProducents = new string[]{ "Lenovo", "HP", "ASUS","DELL","MSI","Apple"};
             smartfonProducents = new string[] { "Lenovo", "XIAOMI", "NOKIA", "SAMSUNG", "Apple" };
             productAttributes = new string[] { "Cena", "Waga", "Rozmiar pamięci RAM", "Rozmiar dysku twardego", "Częstotliwość zegara procesora","Ilość rdzeni procesora" };
-
+            productAttributes_eng = new string[] { "price", "weight", "ram", "storage", "clockrate", "cores" };
             server = "localhost";
             database = "electronicstore_projekt";
             uid = "root";
@@ -71,6 +73,7 @@ namespace SEProject
         {
             listBox_atrybuty.ClearSelected();
             listBox_szablony.ClearSelected();
+            listBox_model.ClearSelected();
             textBox_wyszukaj.Text = "";
         }
 
@@ -162,7 +165,7 @@ namespace SEProject
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                dt.Rows.Add(reader.GetString("producer") + ", " + reader.GetString("productModel"));
+                dt.Rows.Add(reader.GetString("producer") + "," + reader.GetString("productModel"));
                     //listBox_model.Items.Add(reader.GetString("producer") + " "+reader.GetString("productModel"));
                 }
                 reader.Close();
@@ -213,6 +216,8 @@ namespace SEProject
                     {
                         if (!listBox_atrybuty.Text.Equals("")) { 
                         operation = 2;
+                            atrybutwyb = productAttributes_eng[listBox_atrybuty.SelectedIndex];
+                          //  MessageBox.Show("h" + listBox_atrybuty.SelectedIndex.ToString());
                             f = new Diagram();
                             f.ShowDialog();
                     }
@@ -227,7 +232,9 @@ namespace SEProject
                     {
                         if (!listBox_atrybuty.Text.Equals(""))
                         {
+                            
                             operation = 3;
+                            
                             f = new Diagram();
                             f.ShowDialog();
                         }
@@ -256,6 +263,7 @@ namespace SEProject
             list = new List<string>();
             foreach (var item in lst)
             {
+                //MessageBox.Show(item.Row[0].ToString());
                 list.Add(item.Row[0].ToString());
             }
             int a = list.Count();

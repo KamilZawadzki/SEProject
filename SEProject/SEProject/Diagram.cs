@@ -19,6 +19,7 @@ namespace SEProject
         private string database;
         private string uid;
         private string password;
+        private  String[] substrings;
         //lista dla szablonów 3 i 4
         private List<string> dane;
         public Diagram()
@@ -46,15 +47,23 @@ namespace SEProject
                     break;
                 case 2:
                     dane = Charts.przekazListe_zZaznaczeniem();
+                    //MessageBox.Show(dane.Count().ToString());
                     //w liście dane są teraz 2 obiekty, które trzeba splitnąć
                     //i w zalezności od dalszej implementacji wykorzystać przekazane 
                     //tutaj te modele
+                    int i = 0;
+                    string[] models = new string[2];
+
                     foreach (string x in dane)
                     {
+
                         Char delimiter = ',';
                         String[] substrings = x.Split(delimiter);
+                        models[i++] = substrings[1];
+
                     }
-                    
+                    MessageBox.Show(models[0] + " " + models[1]);
+                    porownanie_modelow_telefonow_parametr(models);
                     break;
                 case 3:
                     break;
@@ -132,6 +141,7 @@ namespace SEProject
             chart1_diagram.Series.Clear();
             chart1_diagram.Series.Add("Ilość sprzedanych laptopów");
             chart1_diagram.Series["Ilość sprzedanych laptopów"].Color = Color.Red;
+           // chart1_diagram.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             conn.Open();
             reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -142,7 +152,28 @@ namespace SEProject
             
         }
 
-        
+        private void porownanie_modelow_telefonow_parametr(string[] models)
+        {
+            MessageBox.Show(Charts.atrybutwyb);
+            string querry = $"SELECT product.productModel as x, tel_modele.{Charts.atrybutwyb} as y FROM product INNER JOIN tel_modele ON product.ID=tel_modele.productID WHERE product.productModel='{models[0]}' OR product.productModel='{models[1]}';";
+            
+            MySqlDataReader reader;
+            MySqlCommand cmd = new MySqlCommand(querry, conn);
+
+            chart1_diagram.Series.Clear();
+            chart1_diagram.Series.Add("Series1");
+            chart1_diagram.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+             chart1_diagram.Series["Series1"].Color = Color.Red;
+
+            conn.Open();
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                this.chart1_diagram.Series["Series1"].Points.AddXY(reader.GetString("x"), reader.GetString("y"));
+            }
+            label_nazwa_szablonu.Text = "Porównanie dwóch wybranych telefonów pod względem wybranego parametru";
+            conn.Close();
+        }
 
         private void Diagram_Load(object sender, EventArgs e)
         {
