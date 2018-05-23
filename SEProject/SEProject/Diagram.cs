@@ -94,8 +94,7 @@ namespace SEProject
                 this.chart1_diagram.Series["Ilość sprzedanych smartfonów"].Points.AddXY(reader.GetString("producer"), reader.GetString("Ilosc"));
             }
             conn.Close();
-            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            this.chart1_diagram.SaveImage(startupPath + "\\diagramforszablon1.jpeg", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Jpeg);
+           
         }
 
         private void ilosc_sprzed_laptopow_podz_marki()
@@ -128,13 +127,18 @@ namespace SEProject
                 this.chart1_diagram.Series["Ilość sprzedanych laptopów"].Points.AddXY(reader.GetString("producer"), reader.GetString("Ilosc"));
             }
             conn.Close();
-            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            this.chart1_diagram.SaveImage(startupPath+"\\diagramforszablon2.jpeg", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Jpeg);
+            
         }
 
         private void Diagram_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button_zapisz_Click(object sender, EventArgs e)
+        {
+            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            this.chart1_diagram.SaveImage(startupPath + "\\diagram.jpeg", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Jpeg);
         }
     }
 }
