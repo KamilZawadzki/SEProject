@@ -13,6 +13,7 @@ namespace SEProject
 {
     public partial class Charts : Form
     {
+        public static int descasc;
         private MySqlConnection conn;
         private string server;
         private string database;
@@ -169,13 +170,15 @@ namespace SEProject
             {
                 case 0:
                     operation = 0;
+                    descasc = listBox_atrybuty.SelectedIndex;
                     Diagram f = new Diagram();
                     f.ShowDialog();
+                    
                     break;
 
-                    break;
                 case 1:
                     operation = 1;
+                    descasc = listBox_atrybuty.SelectedIndex;
                     Diagram g = new Diagram();
                     g.ShowDialog();
 

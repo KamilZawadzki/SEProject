@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace SEProject
             connString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
             conn = new MySqlConnection(connString);
             InitializeComponent();
-
+           
             switch (Charts.operation)
             {
                 case 0:
@@ -63,10 +64,23 @@ namespace SEProject
 
         }
 
-        private void ilosc_sprzed_tel_podz_marki()
+        public void ilosc_sprzed_tel_podz_marki()
         {
-
-            string querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='smartfon' GROUP BY product.producer ORDER BY Ilosc DESC LIMIT 4;";
+            string querry="";
+            if (Charts.descasc==0)
+            {
+                querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='smartfon' GROUP BY product.producer ORDER BY Ilosc DESC LIMIT 4;";
+            }
+            else
+            {
+                if (Charts.descasc==1)
+                    querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='smartfon' GROUP BY product.producer ORDER BY Ilosc ASC LIMIT 4;";
+                else
+                {
+                    querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='smartfon' GROUP BY product.producer  LIMIT 4;";
+                }
+            }
+            
 
             MySqlDataReader reader;
             MySqlCommand cmd = new MySqlCommand(querry, conn);
@@ -80,17 +94,33 @@ namespace SEProject
                 this.chart1_diagram.Series["Ilość sprzedanych smartfonów"].Points.AddXY(reader.GetString("producer"), reader.GetString("Ilosc"));
             }
             conn.Close();
+            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            this.chart1_diagram.SaveImage(startupPath + "\\diagramforszablon1.jpeg", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Jpeg);
         }
 
         private void ilosc_sprzed_laptopow_podz_marki()
         {
-            string querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='laptop' GROUP BY product.producer ORDER BY Ilosc DESC LIMIT 4;";
+            string querry = "";
+            if (Charts.descasc == 0)
+            {
+                querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='laptop' GROUP BY product.producer ORDER BY Ilosc DESC LIMIT 4;";
+            }
+            else
+            {
+                if (Charts.descasc == 1)
+                    querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='laptop' GROUP BY product.producer ORDER BY Ilosc ASC LIMIT 4;";
+                else
+                {
+                    querry = $"SELECT product.producer, SUM(sale.amount) as 'Ilosc' FROM sale INNER JOIN product ON sale.productID = product.ID WHERE product.productType='laptop' GROUP BY product.producer  LIMIT 4;";
+                }
+            }
 
             MySqlDataReader reader;
             MySqlCommand cmd = new MySqlCommand(querry, conn);
 
             chart1_diagram.Series.Clear();
             chart1_diagram.Series.Add("Ilość sprzedanych laptopów");
+            chart1_diagram.Series["Ilość sprzedanych laptopów"].Color = Color.Red;
             conn.Open();
             reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -98,6 +128,8 @@ namespace SEProject
                 this.chart1_diagram.Series["Ilość sprzedanych laptopów"].Points.AddXY(reader.GetString("producer"), reader.GetString("Ilosc"));
             }
             conn.Close();
+            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            this.chart1_diagram.SaveImage(startupPath+"\\diagramforszablon2.jpeg", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Jpeg);
         }
 
         private void Diagram_Load(object sender, EventArgs e)
