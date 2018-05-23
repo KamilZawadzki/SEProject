@@ -25,6 +25,7 @@ namespace SEProject
         private String[] laptopProducents;
         private String[] smartfonProducents;
         private String[] productAttributes;
+        private DataTable dt;
         public Charts()
         {
             laptopProducents = new string[]{ "Lenovo", "HP", "ASUS","DELL","MSI","Apple"};
@@ -38,6 +39,10 @@ namespace SEProject
 
             connString = $"SERVER={server};UID={uid};PASSWORD={password};DATABASE={database};";
             conn = new MySqlConnection(connString);
+
+            dt = new DataTable();
+            dt.Columns.Add("XXX");
+          
             InitializeComponent();
         }
 
@@ -65,6 +70,7 @@ namespace SEProject
         {
             listBox_atrybuty.ClearSelected();
             listBox_szablony.ClearSelected();
+            textBox_wyszukaj.Text = "";
         }
 
         private void listBox_atrybuty_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,7 +80,11 @@ namespace SEProject
 
         private void listBox_szablony_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listBox_model.Items.Clear();
+            dt = new DataTable();
+            listBox_model.DataSource = dt;
+            dt.Columns.Add("XXX");
+            listBox_model.DisplayMember = "XXX";
+            // listBox_model.Items.Clear();
             listBox_atrybuty.Items.Clear();
             listBox_model.Enabled = true;
             switch (listBox_szablony.SelectedIndex)
@@ -91,17 +101,17 @@ namespace SEProject
                     break;
                 case 2:
                     load_attributes("smartfon");
-                    load_model("smartfon");             
+                    load_model("smartfon",dt);             
                     break;
                 case 3:
                     load_attributes("laptop");
-                    load_model("laptop");
+                    load_model("laptop", dt);
                     break;
                 case 4:
-                    load_producer("smartfon");
+                    load_producer("smartfon", dt);
                     break;
                 case 5:
-                    load_producer("laptop");
+                    load_producer("laptop", dt);
                     break;
             }
         }
@@ -120,14 +130,16 @@ namespace SEProject
            
         }
 
-        private void load_producer(string v)
+        private void load_producer(string v,DataTable dt)
         {
+          
             if (v.Equals("laptop"))
             {
                 int x = laptopProducents.Length;
                 for (int i = 0; i < x; i++)
                 {
-                    listBox_model.Items.Add(laptopProducents[i]);
+                    dt.Rows.Add(laptopProducents[i]);
+                    //listBox_model.Items.Add(laptopProducents[i]);
                 }
             }
             else
@@ -135,24 +147,23 @@ namespace SEProject
                 int x = smartfonProducents.Length;
                 for (int i = 0; i < x; i++)
                 {
-                    listBox_model.Items.Add(smartfonProducents[i]);
+                    dt.Rows.Add(smartfonProducents[i]);
+                    //listBox_model.Items.Add(smartfonProducents[i]);
                 }
             }       
         }
 
-        private void load_model(String productType)
+        private void load_model(String productType, DataTable dt)
         {
-
                 conn.Open();
                 string query = $"SELECT * FROM product WHERE productType='{productType}'";                  
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    listBox_model.Items.Add(reader.GetString("producer") + " "+reader.GetString("productModel"));
+                dt.Rows.Add(reader.GetString("producer") + " " + reader.GetString("productModel"));
+                    //listBox_model.Items.Add(reader.GetString("producer") + " "+reader.GetString("productModel"));
                 }
-
-                //foodGreetingsLabel2.Text = reader.GetString("Wyzywienie");
                 reader.Close();
 
 
@@ -168,12 +179,11 @@ namespace SEProject
             MessageBox.Show(listBox_szablony.Text);
             switch (listBox_szablony.SelectedIndex)
             {
-                case 0:
-                    operation = 0;
-                    descasc = listBox_atrybuty.SelectedIndex;
-                    Diagram f = new Diagram();
-                    f.ShowDialog();
-                    
+                case 0:              
+                        operation = 0;
+                        descasc = listBox_atrybuty.SelectedIndex;
+                        Diagram f = new Diagram();
+                        f.ShowDialog();                     
                     break;
 
                 case 1:
@@ -184,10 +194,16 @@ namespace SEProject
 
                     break;
                 case 2:
-                    MessageBox.Show("option 3");
+                    if (czy_tylko_dwa_zaznaczenia())
+                    {
+                        MessageBox.Show("option 3");
+                    }
                     break;
                 case 3:
-                    MessageBox.Show("option 4");
+                    if (czy_tylko_dwa_zaznaczenia())
+                    {
+                        MessageBox.Show("option 4");
+                    }
                     break;
                 case 4:
                     MessageBox.Show("option 5");
@@ -202,9 +218,58 @@ namespace SEProject
             }
         }
 
+        private bool czy_tylko_dwa_zaznaczenia()
+        {
+            var lst = listBox_model.SelectedItems.Cast<DataRowView>();
+            List<string> list = new List<string>();
+            foreach (var item in lst)
+            {
+                list.Add(item.Row[0].ToString());
+            }
+            int a = list.Count();
+            if (a == 2)
+            {
+                return true;
+            }
+            else
+            {
+                if (a < 2)
+                {
+                    MessageBox.Show("Za mało zaznaczonych modeli.");
+                }
+                else
+                {
+                    MessageBox.Show("Za dużo zaznaczonych modeli.");
+                }
+                return false;
+            }
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBox_model_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_wyszukaj_TextChanged(object sender, EventArgs e)
+        {
+           
+                DataView dv = dt.DefaultView;
+                dv.RowFilter = string.Format($"XXX LIKE '%{textBox_wyszukaj.Text}%'");
+            
+          
+                
+            
+
+        }
+
+        private void textBox_wyszukaj_Click(object sender, EventArgs e)
+        {
+            textBox_wyszukaj.Text = "";
         }
     }
 }

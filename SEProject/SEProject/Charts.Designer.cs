@@ -43,13 +43,16 @@
             // 
             // textBox_wyszukaj
             // 
+            this.textBox_wyszukaj.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_wyszukaj.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.textBox_wyszukaj.Location = new System.Drawing.Point(5, 337);
-            this.textBox_wyszukaj.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.textBox_wyszukaj.Location = new System.Drawing.Point(5, 321);
+            this.textBox_wyszukaj.Margin = new System.Windows.Forms.Padding(5);
             this.textBox_wyszukaj.Name = "textBox_wyszukaj";
-            this.textBox_wyszukaj.Size = new System.Drawing.Size(265, 22);
+            this.textBox_wyszukaj.Size = new System.Drawing.Size(263, 27);
             this.textBox_wyszukaj.TabIndex = 2;
             this.textBox_wyszukaj.Text = "Wyszukaj...";
+            this.textBox_wyszukaj.Click += new System.EventHandler(this.textBox_wyszukaj_Click);
+            this.textBox_wyszukaj.TextChanged += new System.EventHandler(this.textBox_wyszukaj_TextChanged);
             // 
             // button_wyczysc_zazn
             // 
@@ -117,12 +120,14 @@
             this.listBox_model.FormattingEnabled = true;
             this.listBox_model.HorizontalScrollbar = true;
             this.listBox_model.ItemHeight = 16;
-            this.listBox_model.Location = new System.Drawing.Point(7, 196);
-            this.listBox_model.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox_model.Location = new System.Drawing.Point(5, 196);
+            this.listBox_model.Margin = new System.Windows.Forms.Padding(4);
             this.listBox_model.Name = "listBox_model";
             this.listBox_model.ScrollAlwaysVisible = true;
-            this.listBox_model.Size = new System.Drawing.Size(261, 116);
+            this.listBox_model.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBox_model.Size = new System.Drawing.Size(263, 116);
             this.listBox_model.TabIndex = 6;
+            this.listBox_model.SelectedIndexChanged += new System.EventHandler(this.listBox_model_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -140,11 +145,11 @@
             this.listBox_atrybuty.FormattingEnabled = true;
             this.listBox_atrybuty.HorizontalScrollbar = true;
             this.listBox_atrybuty.ItemHeight = 16;
-            this.listBox_atrybuty.Location = new System.Drawing.Point(7, 22);
-            this.listBox_atrybuty.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox_atrybuty.Location = new System.Drawing.Point(5, 22);
+            this.listBox_atrybuty.Margin = new System.Windows.Forms.Padding(4);
             this.listBox_atrybuty.Name = "listBox_atrybuty";
             this.listBox_atrybuty.ScrollAlwaysVisible = true;
-            this.listBox_atrybuty.Size = new System.Drawing.Size(261, 132);
+            this.listBox_atrybuty.Size = new System.Drawing.Size(263, 132);
             this.listBox_atrybuty.TabIndex = 4;
             this.listBox_atrybuty.SelectedIndexChanged += new System.EventHandler(this.listBox_atrybuty_SelectedIndexChanged);
             // 
