@@ -19,6 +19,8 @@ namespace SEProject
         private string database;
         private string uid;
         private string password;
+        //lista dla szablonów 3 i 4
+        private List<string> dane;
         public Diagram()
         {
             server = "localhost";
@@ -43,6 +45,16 @@ namespace SEProject
                     label_nazwa_szablonu.Text = "Ilość sprzedanych laptopów z podziałem na ich marki";
                     break;
                 case 2:
+                    dane = Charts.przekazListe_zZaznaczeniem();
+                    //w liście dane są teraz 2 obiekty, które trzeba splitnąć
+                    //i w zalezności od dalszej implementacji wykorzystać przekazane 
+                    //tutaj te modele
+                    foreach (string x in dane)
+                    {
+                        Char delimiter = ',';
+                        String[] substrings = x.Split(delimiter);
+                    }
+                    
                     break;
                 case 3:
                     break;
