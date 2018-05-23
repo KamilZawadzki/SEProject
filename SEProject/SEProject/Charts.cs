@@ -234,7 +234,7 @@ namespace SEProject
                         {
                             
                             operation = 3;
-                            
+                            atrybutwyb = productAttributes_eng[listBox_atrybuty.SelectedIndex];
                             f = new Diagram();
                             f.ShowDialog();
                         }

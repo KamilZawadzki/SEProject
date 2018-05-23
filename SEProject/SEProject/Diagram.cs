@@ -66,6 +66,17 @@ namespace SEProject
                     porownanie_modelow_telefonow_parametr(models);
                     break;
                 case 3:
+                    dane = Charts.przekazListe_zZaznaczeniem();
+                    int ix = 0;
+                    string[] models2 = new string[2];
+                    foreach (string x in dane)
+                    {
+                        Char delimiter = ',';
+                        String[] substrings = x.Split(delimiter);
+                        models2[ix++] = substrings[1];
+                    }
+                    //MessageBox.Show(models2[0] + " " + models2[1]);
+                    porownanie_modelow_laptopow_parametr(models2);
                     break;
                 case 4:
                     break;
@@ -154,9 +165,17 @@ namespace SEProject
 
         private void porownanie_modelow_telefonow_parametr(string[] models)
         {
-            MessageBox.Show(Charts.atrybutwyb);
-            string querry = $"SELECT product.productModel as x, tel_modele.{Charts.atrybutwyb} as y FROM product INNER JOIN tel_modele ON product.ID=tel_modele.productID WHERE product.productModel='{models[0]}' OR product.productModel='{models[1]}';";
-            
+            //MessageBox.Show(Charts.atrybutwyb);
+            string querry = null;
+            if (Charts.atrybutwyb.Equals("price"))
+            {
+                querry = $"SELECT productModel as x, price as y FROM product WHERE product.productModel='{models[0]}' OR product.productModel='{models[1]}';";
+            }
+            else
+            {
+                querry = $"SELECT product.productModel as x, tel_modele.{Charts.atrybutwyb} as y FROM product INNER JOIN tel_modele ON product.ID=tel_modele.productID WHERE product.productModel='{models[0]}' OR product.productModel='{models[1]}';";
+            }
+
             MySqlDataReader reader;
             MySqlCommand cmd = new MySqlCommand(querry, conn);
 
@@ -171,7 +190,39 @@ namespace SEProject
             {
                 this.chart1_diagram.Series["Series1"].Points.AddXY(reader.GetString("x"), reader.GetString("y"));
             }
-            label_nazwa_szablonu.Text = "Porównanie dwóch wybranych telefonów pod względem wybranego parametru";
+            label_nazwa_szablonu.Text = $"Porównanie dwóch wybranych telefonów pod względem: {Charts.atrybutwyb}";
+            chart1_diagram.Series["Series1"].Points[0].Color = Color.Blue;
+            chart1_diagram.Series["Series1"].Points[1].Color = Color.Red;
+            conn.Close();
+        }
+        private void porownanie_modelow_laptopow_parametr(string[] models)
+        {
+            //MessageBox.Show(Charts.atrybutwyb);
+            string querry = null;
+            if (Charts.atrybutwyb.Equals("price"))
+            {
+                querry = $"SELECT productModel as x, price as y FROM product WHERE product.productModel='{models[0]}' OR product.productModel='{models[1]}';";
+            }
+            else
+            {
+                querry = $"SELECT product.productModel as x, lap_modele.{Charts.atrybutwyb} as y FROM product INNER JOIN lap_modele ON product.ID=lap_modele.productID WHERE product.productModel='{models[0]}' OR product.productModel='{models[1]}';";
+            }
+
+            MySqlDataReader reader;
+            MySqlCommand cmd = new MySqlCommand(querry, conn);
+
+            chart1_diagram.Series.Clear();
+            chart1_diagram.Series.Add("Series1");
+            chart1_diagram.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
+
+            conn.Open();
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                this.chart1_diagram.Series["Series1"].Points.AddXY(reader.GetString("x"), reader.GetString("y"));
+            }
+            label_nazwa_szablonu.Text = $"Porównanie dwóch wybranych laptopów pod względem: {Charts.atrybutwyb}";
             chart1_diagram.Series["Series1"].Points[0].Color = Color.Blue;
             chart1_diagram.Series["Series1"].Points[1].Color = Color.Red;
             conn.Close();
