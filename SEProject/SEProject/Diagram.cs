@@ -163,7 +163,7 @@ namespace SEProject
             chart1_diagram.Series.Clear();
             chart1_diagram.Series.Add("Series1");
             chart1_diagram.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-             chart1_diagram.Series["Series1"].Color = Color.Red;
+            
 
             conn.Open();
             reader = cmd.ExecuteReader();
@@ -172,6 +172,8 @@ namespace SEProject
                 this.chart1_diagram.Series["Series1"].Points.AddXY(reader.GetString("x"), reader.GetString("y"));
             }
             label_nazwa_szablonu.Text = "Porównanie dwóch wybranych telefonów pod względem wybranego parametru";
+            chart1_diagram.Series["Series1"].Points[0].Color = Color.Blue;
+            chart1_diagram.Series["Series1"].Points[1].Color = Color.Red;
             conn.Close();
         }
 
