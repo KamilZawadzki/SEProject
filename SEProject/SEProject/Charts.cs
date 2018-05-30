@@ -40,7 +40,7 @@ namespace SEProject
             uid = "root";
             password = "";
 
-            connString = $"SERVER={server};UID={uid};PASSWORD={password};DATABASE={database};";
+            connString = $"SERVER={server};UID={uid};PASSWORD={password};DATABASE={database};SslMode=none";
             conn = new MySqlConnection(connString);
 
             dt = new DataTable();

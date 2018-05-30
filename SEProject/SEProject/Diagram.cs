@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
+
+
 namespace SEProject
 {
     public partial class Diagram : Form
@@ -29,7 +31,7 @@ namespace SEProject
             uid = "root";
             password = "";
             string connString;
-            connString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            connString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};SslMode=none";
             conn = new MySqlConnection(connString);
             InitializeComponent();
            
